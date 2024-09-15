@@ -14,8 +14,10 @@ yarn global add dotenv-cli
 
 ## Scripts
 ```bash
-# prima migration
- yarn prisma:dev migrate dev --name init
+# prima command
+yarn prisma:dev generate
+yarn prisma:dev migrate dev --name init
+yarn prisma:dev db push
 ```
 
 ## Environment Variables
