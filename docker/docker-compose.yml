@@ -1,4 +1,4 @@
-name: weaver-board
+name: nest-auth
 
 services:
   api:
@@ -63,28 +63,6 @@ services:
       - ../server:/app
       - ../server/.env.dev:/app/server/.env.dev
       - ../server/apps/alert/.env.dev:/app/apps/alert/.env.app
-    depends_on:
-      - postgres
-      - rabbitmq
-
-  things-board:
-    container_name: things-board
-    build:
-      context: ..
-      dockerfile: server/Dockerfile
-      target: dev
-    command: [sh, -c, "yarn start:dev things-board"]
-    restart: unless-stopped
-    ports:
-      - 8003:8003
-    networks:
-      - local
-    env_file:
-      - ../server/.env.dev
-    volumes:
-      - ../server:/app
-      - ../server/.env.dev:/app/server/.env.dev
-      - ../server/apps/things-board/.env.dev:/app/apps/things-board/.env.app
     depends_on:
       - postgres
       - rabbitmq
