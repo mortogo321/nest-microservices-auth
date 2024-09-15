@@ -17,7 +17,6 @@ services:
       - ../server/.env.prod
     volumes:
       - ../server:/app
-      - ../server/.env.prod:/app/.env.prod
       - ../server/apps/api/.env.prod:/app/apps/api/.env.app
     depends_on:
       - postgres
@@ -39,7 +38,6 @@ services:
       - ../server/.env.prod
     volumes:
       - ../server:/app
-      - ../server/.env.prod:/app/.env.prod
       - ../server/apps/auth/.env.prod:/app/apps/auth/.env.app
     depends_on:
       - postgres
@@ -61,7 +59,6 @@ services:
       - ../server/.env.prod
     volumes:
       - ../server:/app
-      - ../server/.env.prod:/app/.env.prod
       - ../server/apps/alert/.env.prod:/app/apps/alert/.env.app
     depends_on:
       - postgres
