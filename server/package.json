@@ -18,7 +18,8 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./apps/server/test/jest-e2e.json",
-    "prisma:dev": "dotenv -e ./.env.dev -- npx prisma --"
+    "prisma:dev": "dotenv -e .env.prisma -e .env.dev -- npx prisma",
+    "prisma:prod": "dotenv -e .env.prisma -e .env.prod -- npx prisma"
   },
   "dependencies": {
     "@nestjs/common": "^10.0.0",
@@ -30,6 +31,7 @@
     "@prisma/client": "^5.19.1",
     "amqp-connection-manager": "^4.1.14",
     "amqplib": "^0.10.4",
+    "joi": "^17.13.3",
     "prisma": "^5.19.1",
     "reflect-metadata": "^0.2.0",
     "rxjs": "^7.8.1"

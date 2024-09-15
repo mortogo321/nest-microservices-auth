@@ -75,6 +75,7 @@ services:
     env_file:
       - ../server/.env.prod
     volumes:
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
       - postgres-data:/var/lib/postgresql/data
 
   rabbitmq:
