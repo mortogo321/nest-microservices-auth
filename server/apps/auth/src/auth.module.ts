@@ -10,7 +10,7 @@ import { AuthService } from './auth.service';
       isGlobal: true,
       envFilePath: `${process.cwd()}/apps/auth/.env.app`,
     }),
-    RmqModule,
+    RmqModule.register({ name: process.env.AUTH_QUEUE }),
   ],
   controllers: [AuthController],
   providers: [AuthService],

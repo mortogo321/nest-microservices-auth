@@ -12,7 +12,7 @@ import { SmsModule } from './sms/sms.module';
       isGlobal: true,
       envFilePath: `${process.cwd()}/apps/alert/.env.app`,
     }),
-    RmqModule,
+    RmqModule.register({ name: process.env.ALERT_QUEUE }),
     EmailModule,
     SmsModule,
   ],

@@ -18,13 +18,14 @@ async function bootstrap() {
 
   SwaggerModule.setup('docs', app, document);
 
-  const queryName = process.env.ALERT_QUEUE;
+  const queueName = process.env.ALERT_QUEUE;
   const rmqService = app.get<RmqService>(RmqService);
-  app.connectMicroservice<RmqOptions>(rmqService.getOptions(queryName, true));
+  app.connectMicroservice<RmqOptions>(rmqService.getOptions(queueName, true));
   await app.startAllMicroservices();
 
   const port = process.env.PORT;
   await app.listen(port);
   console.log(`${appName} is running on ${port}`);
+  console.log(`queue name is ${queueName}`);
 }
 bootstrap();

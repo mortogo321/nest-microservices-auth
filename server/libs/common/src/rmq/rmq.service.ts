@@ -9,6 +9,9 @@ export class RmqService {
       options: {
         urls: [process.env.RABBIT_MQ_URI],
         queue: process.env[`RABBIT_MQ_${queue}_QUEUE`],
+        queueOptions: {
+          durable: true,
+        },
         noAck,
         persistent: true,
       },

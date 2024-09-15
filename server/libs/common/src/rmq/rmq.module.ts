@@ -23,6 +23,9 @@ export class RmqModule {
               options: {
                 urls: [process.env.RABBIT_MQ_URI],
                 queue: process.env[`RABBIT_MQ_${name}_QUEUE`],
+                queueOptions: {
+                  durable: true,
+                },
               },
             }),
           },
