@@ -41,20 +41,22 @@ export class ResponseInterceptor<T> implements NestInterceptor<T, Response<T>> {
     const ctx = context.switchToHttp();
     const response = ctx.getResponse();
     const request = ctx.getRequest();
-
     const status =
       exception instanceof HttpException
         ? exception.getStatus()
         : HttpStatus.INTERNAL_SERVER_ERROR;
+    const exceptionResponse: any = exception.getResponse();
 
     response.status(status).json({
       status: false,
       statusCode: status,
       path: request.url,
-      message: exception.message,
-      result: exception,
       timestamp: format(new Date().toISOString(), 'yyyy-MM-dd HH:mm:ss OOOO'),
+      message: exceptionResponse?.error,
+      errors: exceptionResponse?.message,
     });
+
+    return exception.message;
   }
 
   responseHandler(res: any, context: ExecutionContext) {
@@ -72,9 +74,9 @@ export class ResponseInterceptor<T> implements NestInterceptor<T, Response<T>> {
       status: true,
       statusCode,
       path: request.url,
+      timestamp: format(new Date().toISOString(), 'yyyy-MM-dd HH:mm:ss OOOO'),
       message: message,
       data: res,
-      timestamp: format(new Date().toISOString(), 'yyyy-MM-dd HH:mm:ss OOOO'),
     };
   }
 }

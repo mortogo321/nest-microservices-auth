@@ -1,6 +1,7 @@
-import { HttpResponseSchema } from '@app/common';
-import { Controller, Get, Post, Res } from '@nestjs/common';
+import { HttpBadRequestSchema, HttpResponseSchema } from '@app/common';
+import { Body, Controller, Get, Post, Res } from '@nestjs/common';
 import {
+  ApiBadRequestResponse,
   ApiBody,
   ApiExtraModels,
   ApiOperation,
@@ -28,8 +29,9 @@ export class AuthController {
   @ApiExtraModels(AuthDto)
   @ApiBody({ schema: { $ref: getSchemaPath(AuthDto) } })
   @ApiResponse(HttpResponseSchema)
+  @ApiBadRequestResponse(HttpBadRequestSchema)
   @Post('sign-up')
-  async signUp(@Res() body: AuthDto) {
+  async signUp(@Body() body: AuthDto) {
     return await this.authService.signUp(body);
   }
 

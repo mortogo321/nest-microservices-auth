@@ -5,13 +5,11 @@ FROM ${IMAGE} AS builder
 
 WORKDIR /app
 
-COPY ../server/package*.json ./
+COPY ../server .
 
 RUN yarn global add @nestjs/cli
 RUN yarn global add @dotenvx/dotenvx
 RUN yarn
-
-COPY ../server .
 
 # development
 FROM builder AS dev
