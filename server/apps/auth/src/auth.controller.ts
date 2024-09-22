@@ -1,4 +1,6 @@
-import { Controller, Get } from '@nestjs/common';
+import { JwtGuard } from '@app/common';
+import { Controller, Get, Req, UseGuards } from '@nestjs/common';
+import { Request } from 'express';
 import { AuthService } from './auth.service';
 
 @Controller()
@@ -8,5 +10,11 @@ export class AuthController {
   @Get()
   getHello(): string {
     return this.authService.getHello();
+  }
+
+  @UseGuards(JwtGuard)
+  @Get('private')
+  privateEndpoint(@Req() request: Request): string {
+    return this.authService.getPrivateMessage(request);
   }
 }

@@ -7,8 +7,8 @@ WORKDIR /app
 
 COPY ../server/package*.json ./
 
-RUN yarn add @nestjs/cli
-RUN yarn add dotenv-cli
+RUN yarn global add @nestjs/cli
+RUN yarn global add @dotenvx/dotenvx
 RUN yarn
 
 COPY ../server .

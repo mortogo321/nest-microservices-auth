@@ -2,6 +2,7 @@ import { RmqService } from '@app/common';
 import { NestFactory } from '@nestjs/core';
 import { RmqOptions } from '@nestjs/microservices';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import * as cookieParser from 'cookie-parser';
 import { AuthModule } from './auth.module';
 
 async function bootstrap() {
@@ -22,6 +23,8 @@ async function bootstrap() {
   const rmqService = app.get<RmqService>(RmqService);
   app.connectMicroservice<RmqOptions>(rmqService.getOptions(queueName, true));
   await app.startAllMicroservices();
+
+  app.use(cookieParser());
 
   const port = process.env.PORT;
   await app.listen(port);

@@ -5,11 +5,11 @@
 
 ## Required
 - NetsJS CLI: https://docs.nestjs.com/cli/overview  
-- dotenv-cli: https://www.prisma.io/docs/orm/more/development-environment/environment-variables/using-multiple-env-files
+- dotenvx: https://github.com/dotenvx/dotenvx
 
 ```bash
 yarn global add @nestjs/cli
-yarn global add dotenv-cli
+yarn global add @dotenvx/dotenvx
 ```
 
 ## Scripts
