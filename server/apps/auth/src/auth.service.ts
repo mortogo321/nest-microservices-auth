@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { Request } from 'express';
+import { AuthDto } from './auth.dto';
 
 @Injectable()
 export class AuthService {
@@ -7,7 +8,15 @@ export class AuthService {
     return 'Hello from Auth!';
   }
 
-  getPrivateMessage(request: Request): string {
-    return String(request.cookies);
+  async signUp(body: AuthDto) {
+    const { email, password } = body;
+    console.log({ email, password });
+    return '';
+  }
+
+  async signIn() {}
+
+  signOut(res: Request) {
+    return res.body;
   }
 }

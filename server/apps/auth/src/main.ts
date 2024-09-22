@@ -1,4 +1,5 @@
 import { ResponseInterceptor, RmqService } from '@app/common';
+import { ClassSerializerInterceptor, ValidationPipe } from '@nestjs/common';
 import { NestFactory, Reflector } from '@nestjs/core';
 import { RmqOptions } from '@nestjs/microservices';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
@@ -19,13 +20,15 @@ async function bootstrap() {
 
   SwaggerModule.setup('docs', app, document);
 
+  app.use(cookieParser());
+  app.useGlobalPipes(new ValidationPipe());
+  app.useGlobalInterceptors(new ClassSerializerInterceptor(app.get(Reflector)));
+  app.useGlobalInterceptors(new ResponseInterceptor(app.get(Reflector)));
+
   const queueName = process.env.AUTH_QUEUE;
   const rmqService = app.get<RmqService>(RmqService);
   app.connectMicroservice<RmqOptions>(rmqService.getOptions(queueName, true));
   await app.startAllMicroservices();
-
-  app.use(cookieParser());
-  app.useGlobalInterceptors(new ResponseInterceptor(app.get(Reflector)));
 
   const port = process.env.PORT;
   await app.listen(port);

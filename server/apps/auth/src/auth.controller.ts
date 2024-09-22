@@ -1,12 +1,22 @@
-import { Controller, Get, Req } from '@nestjs/common';
+import { HttpResponseSchema } from '@app/common';
+import { Controller, Get, Post, Res } from '@nestjs/common';
+import {
+  ApiBody,
+  ApiExtraModels,
+  ApiOperation,
+  ApiResponse,
+  ApiTags,
+  getSchemaPath,
+} from '@nestjs/swagger';
 import { Request } from 'express';
+import { AuthDto } from './auth.dto';
 import { AuthService } from './auth.service';
-import { ApiOperation } from '@nestjs/swagger';
 
 @Controller()
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
+  @ApiTags('health')
   @Get()
   @ApiOperation({
     summary: 'Get Hello',
@@ -15,9 +25,21 @@ export class AuthController {
     return this.authService.getHello();
   }
 
-  // @UseGuards(JwtGuard)
-  @Get('private')
-  privateEndpoint(@Req() request: Request): string {
-    return this.authService.getPrivateMessage(request);
+  @ApiExtraModels(AuthDto)
+  @ApiBody({ schema: { $ref: getSchemaPath(AuthDto) } })
+  @ApiResponse(HttpResponseSchema)
+  @Post('sign-up')
+  async signUp(@Res() body: AuthDto) {
+    return await this.authService.signUp(body);
+  }
+
+  @Post('sign-in')
+  signIn() {
+    return 'Sign in';
+  }
+
+  @Get('sign-out')
+  signOut(@Res() res: Request) {
+    return this.authService.signOut(res);
   }
 }
