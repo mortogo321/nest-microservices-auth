@@ -1,5 +1,5 @@
-import { RmqService } from '@app/common';
-import { NestFactory } from '@nestjs/core';
+import { ResponseInterceptor, RmqService } from '@app/common';
+import { NestFactory, Reflector } from '@nestjs/core';
 import { RmqOptions } from '@nestjs/microservices';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import * as cookieParser from 'cookie-parser';
@@ -25,6 +25,7 @@ async function bootstrap() {
   await app.startAllMicroservices();
 
   app.use(cookieParser());
+  app.useGlobalInterceptors(new ResponseInterceptor(app.get(Reflector)));
 
   const port = process.env.PORT;
   await app.listen(port);
