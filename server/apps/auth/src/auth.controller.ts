@@ -35,9 +35,13 @@ export class AuthController {
     return await this.authService.signUp(body);
   }
 
+  @ApiExtraModels(AuthDto)
+  @ApiBody({ schema: { $ref: getSchemaPath(AuthDto) } })
+  @ApiResponse(HttpResponseSchema)
+  @ApiBadRequestResponse(HttpBadRequestSchema)
   @Post('sign-in')
-  signIn() {
-    return 'Sign in';
+  async signIn(@Body() body: AuthDto) {
+    return await this.authService.signIn(body);
   }
 
   @Get('sign-out')

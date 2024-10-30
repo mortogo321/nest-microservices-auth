@@ -1,11 +1,18 @@
 import { RmqService } from '@app/common/rmq/rmq.service';
 import { NestFactory } from '@nestjs/core';
 import { RmqOptions } from '@nestjs/microservices';
+import {
+  FastifyAdapter,
+  NestFastifyApplication,
+} from '@nestjs/platform-fastify';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AlertModule } from './alert.module';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AlertModule);
+  const app = await NestFactory.create<NestFastifyApplication>(
+    AlertModule,
+    new FastifyAdapter(),
+  );
   const appName = process.env.APP_NAME;
 
   const documentConfig = new DocumentBuilder()

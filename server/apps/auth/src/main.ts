@@ -2,12 +2,19 @@ import { ResponseInterceptor, RmqService } from '@app/common';
 import { ClassSerializerInterceptor, ValidationPipe } from '@nestjs/common';
 import { NestFactory, Reflector } from '@nestjs/core';
 import { RmqOptions } from '@nestjs/microservices';
+import {
+  FastifyAdapter,
+  NestFastifyApplication,
+} from '@nestjs/platform-fastify';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import * as cookieParser from 'cookie-parser';
 import { AuthModule } from './auth.module';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AuthModule);
+  const app = await NestFactory.create<NestFastifyApplication>(
+    AuthModule,
+    new FastifyAdapter(),
+  );
   const appName = process.env.APP_NAME;
 
   const documentConfig = new DocumentBuilder()
