@@ -18,6 +18,7 @@ services:
     volumes:
       - ../server:/app
       - ../server/apps/api/.env.dev:/app/apps/api/.env.app
+      - node_modules:/app/node_modules
     depends_on:
       - postgres
       - rabbitmq
@@ -39,6 +40,7 @@ services:
     volumes:
       - ../server:/app
       - ../server/apps/auth/.env.dev:/app/apps/auth/.env.app
+      - node_modules:/app/node_modules
     depends_on:
       - postgres
       - rabbitmq
@@ -60,6 +62,7 @@ services:
     volumes:
       - ../server:/app
       - ../server/apps/alert/.env.dev:/app/apps/alert/.env.app
+      - node_modules:/app/node_modules
     depends_on:
       - postgres
       - rabbitmq
@@ -108,5 +111,6 @@ networks:
   local:
 
 volumes:
+  node_modules:
   postgres-data:
   rabbitmq-data:

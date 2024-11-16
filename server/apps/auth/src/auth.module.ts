@@ -1,7 +1,6 @@
-import { AuthJwtModule, DatabaseModule, RmqModule } from '@app/common';
+import { DatabaseModule, RmqModule } from '@app/common';
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { JwtService } from '@nestjs/jwt';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
 
@@ -13,10 +12,9 @@ import { AuthService } from './auth.service';
     }),
     RmqModule.register({ name: process.env.AUTH_QUEUE }),
     DatabaseModule,
-    AuthJwtModule,
   ],
   exports: [AuthService],
   controllers: [AuthController],
-  providers: [AuthService, JwtService],
+  providers: [AuthService],
 })
 export class AuthModule {}

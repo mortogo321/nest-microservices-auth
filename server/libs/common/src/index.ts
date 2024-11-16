@@ -1,5 +1,4 @@
-export * from './auth/auth-jwt.module';
-export * from './auth/jwt.guard';
+export * from './authenticator/authenticator.module';
 export * from './database/database.module';
 export * from './database/prisma.service';
 export * from './decorators/response-message.decorator';

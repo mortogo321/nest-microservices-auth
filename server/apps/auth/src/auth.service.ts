@@ -4,17 +4,13 @@ import {
   Injectable,
   UnauthorizedException,
 } from '@nestjs/common';
-import { JwtService } from '@nestjs/jwt';
 import { plainToInstance } from 'class-transformer';
 import { Request } from 'express';
 import { AuthDto } from './auth.dto';
 
 @Injectable()
 export class AuthService {
-  constructor(
-    private db: PrismaService,
-    private jwtService: JwtService,
-  ) {}
+  constructor(private db: PrismaService) {}
 
   getHello(): string {
     return 'Hello from Auth!';
@@ -54,10 +50,10 @@ export class AuthService {
       throw new UnauthorizedException('Wrong credentials');
     }
 
-    const payload = { email: user.email, sub: user.id };
+    // const payload = { email: user.email, sub: user.id };
 
     return {
-      access_token: await this.jwtService.signAsync(payload),
+      access_token: null, //await this.jwtService.signAsync(payload),
     };
   }
 
